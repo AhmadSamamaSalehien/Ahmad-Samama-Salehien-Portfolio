@@ -1215,28 +1215,36 @@
   -->
   <script src="./assets/js/script.js"></script>
 
-  <!-- Custom Cursor JS -->
+  <!-- Custom Cursor JS - Only for desktop -->
   <script>
-    const cursor = document.querySelector('.cursor');
-    const hoverElements = ['a', 'button', '.btn', '[role="button"]', 'input', 'textarea', 'select', '.project-item', '.social-link', '.navbar-link', '.article-card', '.contact-form-input', '.form-input', '.form-textarea', '.form-select', '.filter-btn', '[data-filter-btn]', '[data-select]', '[data-select-item]'];
+    // Only initialize custom cursor on desktop devices (screen width > 1024px)
+    if (window.innerWidth > 1024) {
+      const cursor = document.querySelector('.cursor');
+      const hoverElements = ['a', 'button', '.btn', '[role="button"]', 'input', 'textarea', 'select', '.project-item', '.social-link', '.navbar-link', '.article-card', '.contact-form-input', '.form-input', '.form-textarea', '.form-select', '.filter-btn', '[data-filter-btn]', '[data-select]', '[data-select-item]'];
 
-    // Update cursor position
-    document.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-    });
+      // Make cursor visible
+      if (cursor) cursor.style.display = 'block';
 
-    // Add hover effect to interactive elements
-    hoverElements.forEach(selector => {
-      document.querySelectorAll(selector).forEach(element => {
-        element.addEventListener('mouseenter', () => {
-          cursor.classList.add('hover');
-        });
-        element.addEventListener('mouseleave', () => {
-          cursor.classList.remove('hover');
+      // Update cursor position
+      document.addEventListener('mousemove', (e) => {
+        if (cursor) {
+          cursor.style.left = e.clientX + 'px';
+          cursor.style.top = e.clientY + 'px';
+        }
+      });
+
+      // Add hover effect to interactive elements
+      hoverElements.forEach(selector => {
+        document.querySelectorAll(selector).forEach(element => {
+          element.addEventListener('mouseenter', () => {
+            if (cursor) cursor.classList.add('hover');
+          });
+          element.addEventListener('mouseleave', () => {
+            if (cursor) cursor.classList.remove('hover');
+          });
         });
       });
-    });
+    }
   </script>
 
   <!--
